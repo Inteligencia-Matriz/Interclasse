@@ -34,3 +34,45 @@ escolher um arquivo específico para dar push -> git add <nome arquivo>
 adicionar uma descrição de commit -> git commit -m "<descrição>"
 
 dar push para o github -> git push
+---------------------------------------
+Pegar credencial no Console Google Cloud 
+Selecionar o projeto -> APIs e Serviços -> Credenciais -> clicar no nome azul do email -> la em cima, aba [chaves] -> 
+Adicionar chave -> Criar nova chave -> JSON
+
+---------------------------------------
+adicionando credencial no github
+1. dentro do arquivo [.gitignore], adicionar [# Ignorar arquivos de segredos e credenciais]
+1. incluir o nome dos arquivos credenciais dentro do arquivo [.gitignore]
+2. no terminal:
+
+# Adiciona as mudanças no arquivo .gitignore para a "área de preparação"
+git add .gitignore
+
+# Cria o commit com uma mensagem clara sobre o que foi feito
+git commit -m "Adiciona minhas-credenciais.json ao gitignore"
+
+# Envia a mudança para o seu repositório no GitHub
+git push
+
+------------------------------------
+Arquivo TOML para o Streamlit:
+> usar 3 aspas no inicio e no final de [private.key]
+> substituir [:] por [ = ]
+> retirar as aspas das variáveis
+
+EX:
+type = "service_account"
+project_id = "<SEU_PROJECT_ID>"
+private_key_id = "<SEU_PRIVATE_KEY_ID>"
+client_email = "<SEU_CLIENT_EMAIL>"
+client_id = "<SEU_CLIENT_ID>"
+
+private_key = """-----BEGIN PRIVATE KEY-----
+COLE_SUA_CHAVE_PRIVADA_COMPLETA_AQUI
+-----END PRIVATE KEY-----"""
+
+------------------------------------
+Adicionando as credenciais GitHub Secrets
+entrar no repositorio -> settings (configurações) -> barra lateral, [Secrets and variables] -> Actions -> New repository secret ->
+> Name: de nome ao secrets usando letras maiusculas (ex: GCP_CREDENTIALS)
+> Value (ou Secret): adicionar o conteudo completo do seu arquivo com as credenciais
