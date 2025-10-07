@@ -1,0 +1,36 @@
+python -m venv <nome> -> python -m venv v1
+<pasta>\Scripts\active -> v1\Scripts\activate 
+
+instalar bibliotecas do arquivo [ req ] -> pip install -r requirements.txt
+
+ativar o ambiente virtual se não estiver ativado -> <pasta>\Scripts\active -> v1\Scripts\activate
+
+Guardar bibliotecas instaladas -> [ pip freeze > requirements.txt ]
+
+Ativar o código -> streamlit run main.py
+
+rodar o streamlit -> streamlit run <nome arquivo> ou python -m streamlit run <arquivo>
+    streamlit run tst2.py
+
+pode ser preciso mudar a prota de acesso, se a porta padrão 8501 ja estiver em uso por outra 
+aplicação -> python -m streamlit run <arquivo>.py --server.port <numero da porta (8502, 8503, ...)>
+    > ex: python -m streamlit run inter.py --server.port 8502
+
+Verificarq quem esta usando a porta de entrada: netstat -ano | findstr :<porta entrada>
+    > ex: netstat -ano | findstr :8502
+
+Encerrar uma aplicação que esta usando determinada porta: taskkill /PID <numero PID (5 coluna)> /F
+    > taskkill /PID 11236 /F
+
+--------------------------------------
+Fazendo push direto do Git -> git push -u origin main
+
+Verificando se os caminhos do Git estão certos para o push no Github -> git remote -v
+
+Verificando o status do repositório local -> git status
+
+escolher um arquivo específico para dar push -> git add <nome arquivo>
+
+adicionar uma descrição de commit -> git commit -m "<descrição>"
+
+dar push para o github -> git push

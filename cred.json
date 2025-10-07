@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "projectinterclasse2025",
+  "private_key_id": "20116c381c8f0ae8c3889b2a317e42f024a10caa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDTZdvMkfVsMF6M\n4XOUTH479F2OtBbW/hRicngSos+IWcAoP4r7VM/muCdyHQJ3bLgCCtY6zId5K3WL\nuWmjc8i0JXbc3ZAPbsEIrQmzMbwnNRozt45j4f0X3MwMbvCKlFQuKRixAizDuljN\nGb8qA1lrzQI5Uy17sm2T3Pu7HDSJbneYMoqsC8FlKFdiVcGQrn52Cv7UtglUjbeW\nEkGmQIxtKHRqYh2twBSzmt9XAJfumaR/f/DWLl2H61prWffgi/HPOdy67XpcqUjg\nmZQvG00HztTHWb7j+KEFKnIXDhmRY9z3i+nURjOLUoazTOUWbjfHkVD+h2ZkDw2a\nYZLw+z4bAgMBAAECggEAHbGJibcYz40NwuEqIHMMKjS9bX2LVcCTsW5dwlRfLUpa\nDO08AuibWU+Vrtg3T/oT8KmABPtUrib2GF2/YmexkehPRV/Ty+8lKyhPG/4I7ULu\nvsPyOsJ0EAWCHd75Z6XFG0THhJmHGykSLyEGMosM5PEDdnTiByV9cc8RBuvDz2fU\n7mfMDxrp9tfRPxF+Nl67Urv3kiwW1Z0/2qmmFc47OG8eY76qcHTeoB0B9rgF1qaJ\no7EAJm8jVMczwl08KsfeCz+bQPq3mdoC9MfQl8hLJB28q43308dPKwMFR2lkSxqQ\nl/M2gd9YwZ1My2fQptERn5Iu0FpdW1EYE4gKKYk4yQKBgQD1pnuXq7W/7ls1x0XB\nrhHAs5v+1amz3dYT+3SFw6m5IoTQlsSKE0LzXBhoGPSnpHXf4T79BE+goSyE04Cr\nWO6yF/dmBwr7HoDcOm25s96yu9IlJHUw3xz2pzGERThFh0iKTFd712LGqDqhxl5S\nvbeU8nC5iXHaXSLbLs+AaN6i0wKBgQDcTfA5St22xkz7l+ZDfmqU3dwL2meeQ2SE\neUXEBUlcg0OFfYQR910iF9meVg97lRb0Ju7uzVCxldGpCmHbP1m0X5J8P47/NMTi\nwvz/fjq6S0uS1NzQKCwbGQN5fpxXJbYpF9ybyaO885xPv/YCVOIsZux+afglhC2G\nPANgbIOamQKBgBeqpHmmV2pYYn0556STSq6QH1Vb7G+hzcA7F6zTfwSRKM6X1/Od\ni3O6ybctwFRuadTZ9KGXyrwlCw74+YqIlOafnHw97XboJ24QSwX7KFd79PETJB9D\nP50b2o9tw9AfCoQYes05oRCWoJ95Zxj9ojQ9b1LQxSFOm88WIXOzps91AoGBANe/\nB/PDqq+VMczubFVK1yvkvdtpzzIBg83sSfN2zeporlZrnkxN+Ior2zWhyFXZovoF\nqtZ4gX74XrPx8/VX7Aylz/oX8H1jezErjcLUJsVMeb1Y8spznQYIkAuKf6ckymkh\n8i0q4kxoMnszXcPYxwp+3TnLo3VyJXchDJmAi715AoGBAOJCDf2DbLutAyuYMcnq\nTRDFDPky8aK2YnyMXDhNQwbH3X6mdyR7jg6vKGlnOAwbIZ2BJBiq0x28U0Ul57oX\n2D7QFNq20vFcVDIOjHVYzfgb5qODJtwBSkUdP7Hh/yy31jkDiGTxOV6eW8+Wk/D7\nHa7xdcZESisEoqMvohvg00Gf\n-----END PRIVATE KEY-----\n",
+  "client_email": "interclasse@projectinterclasse2025.iam.gserviceaccount.com",
+  "client_id": "116525180220447049045",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/interclasse%40projectinterclasse2025.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
