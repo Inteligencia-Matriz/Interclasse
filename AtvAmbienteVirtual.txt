@@ -65,6 +65,9 @@ Arquivo TOML para o Streamlit:
 > retirar as aspas das variáveis
 
 EX:
+# .streamlit/secrets.toml
+
+[gcp_service_account]
 type = "service_account"
 project_id = "<SEU_PROJECT_ID>"
 private_key_id = "<SEU_PRIVATE_KEY_ID>"
