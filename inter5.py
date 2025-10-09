@@ -344,34 +344,37 @@ def main_app():
         st.error("Não foi possível carregar os dados das modalidades.")
         return
     
+    # MODIFICAÇÃO: Define a unidade automaticamente baseada no usuário logado
+    unidade_usuario = st.session_state.user_info['unidade']
+    
     # Filtro por turma antes de exibir a tabela
     st.subheader("🎯 Filtros para Seleção")
     
     col_filtro1, col_filtro2 = st.columns(2)
     
     with col_filtro1:
-        # FILTRO POR UNIDADE
-        unidades_disponiveis = sorted(df_alunos['Unidade'].unique())
-        unidade_selecionada = st.selectbox(
-            "Selecione a Unidade:",
-            options=unidades_disponiveis,
-            index=0,
-            help="Selecione a unidade para filtrar os alunos"
-        )
-    
+        # MODIFICAÇÃO: Unidade fixa baseada no usuário logado
+        st.write(f"**Unidade:** {unidade_usuario}")
+        # Filtra alunos apenas da unidade do usuário
+        df_alunos_filtro_unidade = df_alunos[df_alunos['Unidade'] == unidade_usuario]
+        
     with col_filtro2:
-        # FILTRO POR TURMA - Agora filtra a tabela completa
-        turmas_disponiveis = sorted(df_alunos[df_alunos['Unidade'] == unidade_selecionada]['Turma do Aluno'].unique())
-        turma_selecionada = st.selectbox(
-            "Selecione a Turma:",
-            options=turmas_disponiveis,
-            index=0,
-            help="Filtre os alunos por turma"
-        )
+        # FILTRO POR TURMA - Agora filtra apenas alunos da unidade do usuário
+        turmas_disponiveis = sorted(df_alunos_filtro_unidade['Turma do Aluno'].unique())
+        if turmas_disponiveis:
+            turma_selecionada = st.selectbox(
+                "Selecione a Turma:",
+                options=turmas_disponiveis,
+                index=0,
+                help="Filtre os alunos por turma"
+            )
+        else:
+            st.error("Nenhuma turma disponível para esta unidade.")
+            return
     
-    # Filtra alunos pela unidade e turma selecionadas
+    # Filtra alunos pela unidade do usuário e turma selecionada
     df_alunos_filtrados = df_alunos[
-        (df_alunos['Unidade'] == unidade_selecionada) & 
+        (df_alunos['Unidade'] == unidade_usuario) & 
         (df_alunos['Turma do Aluno'] == turma_selecionada)
     ].reset_index(drop=True)
     
@@ -438,7 +441,7 @@ def main_app():
     # FILTRO DE MODALIDADES DISPONÍVEIS
     modalidades_filtradas = df_modalidades_completas[
         (df_modalidades_completas['Genero'] == genero_selecionado) & 
-        (df_modalidades_completas['Unidade'] == unidade_selecionada) &
+        (df_modalidades_completas['Unidade'] == unidade_usuario) &
         (df_modalidades_completas['Tem_Vaga'] != 'NÃO')
     ].reset_index(drop=True)
     
@@ -514,13 +517,13 @@ def main_app():
         else:
             st.info("ℹ️ Selecione uma ou mais modalidades na tabela acima")
     else:
-        st.warning(f"Nenhuma modalidade disponível para gênero {genero_selecionado} na unidade {unidade_selecionada}")
+        st.warning(f"Nenhuma modalidade disponível para gênero {genero_selecionado} na unidade {unidade_usuario}")
         st.session_state.modalidades_selecionadas = []
     
     # Exibe modalidades sem vaga
     modalidades_sem_vaga = df_modalidades_completas[
         (df_modalidades_completas['Genero'] == genero_selecionado) & 
-        (df_modalidades_completas['Unidade'] == unidade_selecionada) &
+        (df_modalidades_completas['Unidade'] == unidade_usuario) &
         (df_modalidades_completas['Tem_Vaga'] == 'NÃO')
     ]['Modalidade'].dropna().unique().tolist()
     
@@ -545,9 +548,8 @@ def main_app():
                     'RA Aluno': aluno['ra'],
                     'Turma Aluno': aluno['turma'],
                     'Gênero Modalidade': modalidade['genero'],
-                    'Modalidade': modalidade['modalidade'],
-                    'Unidade Modalidade': modalidade['unidade'],
-                    'Data/Hora': pd.Timestamp.now().strftime("%d/%m/%Y %H:%M:%S")
+                    'Modalidade': modalidade['modalidade']
+                    # MODIFICAÇÃO: Remove "Unidade Modalidade" e "Data/Hora" da prévia
                 })
                 total_registros += 1
         
@@ -569,9 +571,9 @@ def main_app():
         with col_resumo3:
             st.metric("Total de Registros", total_registros)
         with col_resumo4:
-            st.metric("Unidade", unidade_selecionada)
+            st.metric("Unidade", unidade_usuario)
 
-    # Botão para registrar as inscrições em lote
+    # Botão para registrar as inscrições em lote - CORREÇÃO APLICADA
     if st.button("🎓 Registrar Inscrições em Lote", type="primary"):
         if not st.session_state.alunos_selecionados or not st.session_state.modalidades_selecionadas:
             st.error("Por favor, selecione pelo menos um aluno e uma modalidade.")
@@ -584,7 +586,7 @@ def main_app():
             
             if modalidades_sem_vaga_suficiente:
                 st.error(f"❌ As seguintes modalidades não têm vagas suficientes: {', '.join(modalidades_sem_vaga_suficiente)}")
-                return
+                st.stop()
             
             inscricoes_realizadas = 0
             erros = 0
@@ -592,16 +594,17 @@ def main_app():
             # Processa COMBINAÇÕES de alunos x modalidades
             for aluno_info in st.session_state.alunos_selecionados:
                 for modalidade_info in st.session_state.modalidades_selecionadas:
-                    # Prepara os dados para salvar
+                    # MODIFICAÇÃO: Prepara os dados completos para salvar (incluindo dados extras)
                     dados_inscricao = [
-                        aluno_info['unidade'],
-                        aluno_info['nome'],
-                        aluno_info['ra'],
-                        aluno_info['turma'],
-                        modalidade_info['genero'],
-                        modalidade_info['modalidade'],
-                        modalidade_info['unidade'],
-                        pd.Timestamp.now().strftime("%d/%m/%Y %H:%M:%S")
+                        aluno_info['unidade'],           # Unidade Aluno
+                        aluno_info['nome'],              # Nome Aluno
+                        aluno_info['ra'],                # RA Aluno
+                        aluno_info['turma'],             # Turma Aluno
+                        modalidade_info['genero'],       # Gênero Modalidade
+                        modalidade_info['modalidade'],   # Modalidade
+                        modalidade_info['unidade'],      # Unidade Modalidade (MODIFICAÇÃO: adicionada)
+                        pd.Timestamp.now().strftime("%d/%m/%Y %H:%M:%S"),  # Data/Hora (MODIFICAÇÃO: adicionada)
+                        st.session_state.user_info['nome']  # MODIFICAÇÃO: Nome do usuário que realizou a ação
                     ]
                     
                     # Tenta salvar na planilha
@@ -614,10 +617,11 @@ def main_app():
                 st.success(f"✅ {inscricoes_realizadas} inscrição(ões) registrada(s) com sucesso!")
                 st.info(f"📊 Foram criadas {inscricoes_realizadas} combinações de alunos x modalidades")
                 
-                # Limpa seleção após registro bem-sucedido
+                # CORREÇÃO: Limpa as seleções E força atualização da página
                 st.session_state.alunos_selecionados = []
                 st.session_state.modalidades_selecionadas = []
-                st.rerun()  # Recarrega a página para limpar as seleções
+                st.rerun()  # ← LINHA ADICIONADA para forçar a atualização
+                
             else:
                 st.warning(f"⚠️ {inscricoes_realizadas} inscrição(ões) bem-sucedidas, {erros} com erro.")
 
