@@ -1,10 +1,21 @@
-# app.py
+# AtivarAQUI.py
+# AtivarAQUI.py
 import streamlit as st
-from utils.Login import pagina_login, verificar_autenticacao, fazer_logout
-from utils.Realizar_Cadastros import pagina_principal
-from utils.Lista_inscritos import pagina_lista_inscritos
-from utils.sheets import *
 
+try:
+    # Tenta importar com utils (VS Code)
+    from utils.Login import pagina_login, verificar_autenticacao, fazer_logout
+    from utils.Realizar_Cadastros import pagina_principal
+    from utils.Lista_inscritos import pagina_lista_inscritos
+except ImportError:
+    try:
+        # Tenta importar sem utils (Streamlit Cloud)
+        from Login import pagina_login, verificar_autenticacao, fazer_logout
+        from Realizar_Cadastros import pagina_principal
+        from Lista_inscritos import pagina_lista_inscritos
+    except ImportError as e:
+        st.error(f"Erro crítico: Não foi possível importar os módulos. Erro: {e}")
+        st.stop()
 
 def main_app():
     """Aplicação principal após login"""
