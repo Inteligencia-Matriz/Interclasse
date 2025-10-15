@@ -3,6 +3,8 @@ import streamlit as st
 from utils.Login import pagina_login, verificar_autenticacao, fazer_logout
 from utils.Realizar_Cadastros import pagina_principal
 from utils.Lista_inscritos import pagina_lista_inscritos
+from utils.sheets import *
+
 
 def main_app():
     """Aplicação principal após login"""

@@ -15,7 +15,7 @@ rodar o streamlit -> streamlit run <nome arquivo> ou python -m streamlit run <ar
 pode ser preciso mudar a prota de acesso, se a porta padrão 8501 ja estiver em uso por outra 
 aplicação -> python -m streamlit run <arquivo>.py --server.port <numero da porta (8502, 8503, ...)>
     > ex: python -m streamlit run inter.py --server.port 8502
-    python -m streamlit run utils/AtivarAQUI.py --server.port 8504
+    python -m streamlit run AtivarAQUI.py --server.port 8504
 
 Verificarq quem esta usando a porta de entrada: netstat -ano | findstr :<porta entrada>
     > ex: netstat -ano | findstr :8502
