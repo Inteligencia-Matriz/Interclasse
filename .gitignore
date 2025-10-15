@@ -1,3 +1,19 @@
 # Ignorar arquivos de segredos e credenciais
 cred.json
 cred2.json
+
+
+# .streamlit/secrets.toml
+
+[gcp_service_account]
+type= service_account
+project_id = "projectinterclasse2025"
+private_key_id = "fcabc7d0bec4c2a05c8af3f8f98036d433050d40"
+private_key = """-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwiMCVdqLS7Qy/\nCG8fqlXePchiQq0EX2igOQQw0T5nD8tryxHR7pkwNm3dhgMLDf4BTQf6IqkDYtYC\nDIjfp5FjXuZ0f/KqoFiuyvMO+uEo6MOAaeYhUhUahp+BxFdtlyOeKvtVMVRc050T\nJEzYeI4RerlZbDqx9fEWAtjQ3Kq0Pkkzvtr63JR37gzbX8FhZK7j4HmczbHdLSeQ\naUwZxKSzhm1gFfovETi1LgO+c0GzyQvTylrRHlRT+p7FfKiUBPnY1YLyruXOjr3X\nRQV5W4+uGgKapYs7L2NI/69/z/K3B2yBKpmjnFmzaKEw98JEeWjznwDo7Lg+I9aI\n8OQrEORNAgMBAAECggEAD7b8vdFjyTcE7XSIv97f6frB/c1FrZ/4plqs/tOBpJcJ\nWr0nBvMge+Q8f33Qg4lpVSBQV3oCZaTEvEX1YUN/c8Mc7L3/EiVX/6ddX7YBmSyv\nSp0iuVCfRE87n8ekqMLNjuTwnrLXebP0xaFzncmNjAzKtyUlTHZCUd1LA7zBDW5g\nKHJSe7f/8EtydA+fVHTGE5mGF/4mTyN76F0BGmYFIMRKCOjTPRaojP1lN6fuSDBD\nMuLCFK4YjPdhmavxMMA38h/P51pAwr+r2BlZXbaKQMfJog/BNX0topi9d1ISgTmO\nMlG7sKBNhv/wODsZ3aXrb46+5mrGvvcqaM2f5KmmmQKBgQDVpfAoGne3FSJEPKJZ\n96+wwm+oMpatipfWMEZgRAvbsqGtctUJ1FzsySM9+T7SU2trCtxDcossC+w2P2oX\nondRFbf11iiQyeeKuOL25aJehrR2ycBi/5vQmoHD0RQHLAea60tnbNdZrrRI1VQF\nRz48Gw6pwzrH8WSX8ic0NVQHzwKBgQDTh2E4Ly67JWPXYrUuXVP+M7ZtH/VFNaGO\n/aDLY6ukSOIrYcNYh+fqhbbziSAqNxgPZtCPoJBLg9Mk/S9QaJVwffhW0uLT4JBx\nhvE4IRxznnyycAiOmH+wh8XLYjnz/7gknPvOU2FL3/S1YKv7yyD5h0nviatkrsfI\n5wARoDC9IwKBgQCK8WDO4++pPHBNilVXRzKWNM0iyMufTvvSCxEpt/cySOjGgWC1\nBMvuHhzyR+8oH6JDOgvnPU3vNk3HNdSMTFdmf0Zk9YLqLrSLThQk11CSQu6INksM\n1wkBUApGS+nHhEXp5U3jlDA1Hd4XY81BpYR+2GXf15yZvY5bFtuSI4BjlwKBgBmk\nuuN9zNOBR+ZPoBlb1RfnGwGFs01NoCVemASwM5m6ADk0I+NyrmnfBfvmLtEPVspf\nM3+F/pg5Bfrg+sBrvVoi211jOX5oJfqtWkbstK9LkmBrdo4a7Lfw7cinQtFSufcu\nVNSBhTUWlGr8qjzfNkMp5Iu2i+Gr0qqHXpnEasQzAoGAOqdNunuOFC/SZ0vSw2hD\nlGMHHHteEXkhfzCsFPEOwvEC5eyd9C8gg9ljfGooNpg4BVQl18IUjhYH4VZPxBGd\neg7m84gHyUo4LwL4zXdYxL689jAQk0YQc04bBs2PqXcW3mWTS+LstrTNlqZ9EtDA\n80WxSFiOFDJYHxKrx2N5+Qw=\n-----END PRIVATE KEY-----\n"""
+client_email = "interclasse@projectinterclasse2025.iam.gserviceaccount.com"
+client_id = "116525180220447049045"
+auth_uri = "https://accounts.google.com/o/oauth2/auth"
+token_uri = "https://oauth2.googleapis.com/token"
+auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+client_x509_cert_url = "https://www.googleapis.com/robot/v1/metadata/x509/interclasse%40projectinterclasse2025.iam.gserviceaccount.com"
+universe_domain = "googleapis.com"
