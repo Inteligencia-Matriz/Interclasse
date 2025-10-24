@@ -18,7 +18,7 @@ aplicação -> python -m streamlit run <arquivo>.py --server.port <numero da por
     python -m streamlit run AtivarAQUI.py --server.port 8504
 
 Verificarq quem esta usando a porta de entrada: netstat -ano | findstr :<porta entrada>
-    > ex: netstat -ano | findstr :8502
+    > ex: netstat -ano | findstr :8504
 
 Encerrar uma aplicação que esta usando determinada porta: taskkill /PID <numero PID (5 coluna)> /F
     > taskkill /PID 11236 /F

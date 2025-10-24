@@ -5,7 +5,7 @@ from utils.sheets import *
 
 def pagina_lista_inscritos():
     """Página para visualizar e gerenciar inscrições"""
-    st.title("📋 Lista de Alunos Inscritos")
+    st.title("ALUNOS INSCRITOS")
     
     # Verifica conexão com Google Sheets
     if get_workbook() is None:
@@ -17,7 +17,7 @@ def pagina_lista_inscritos():
         df_inscritos = load_full_sheet_as_df('INSCRITOS-UNIDADE')
         
         if df_inscritos.empty:
-            st.info("📝 Nenhum aluno inscrito encontrado.")
+            st.info("Nenhum aluno inscrito encontrado.")
             return
         
         # Verifica e padroniza os nomes das colunas
@@ -37,10 +37,10 @@ def pagina_lista_inscritos():
         df_inscritos_filtrado = df_inscritos[df_inscritos['Unidade'] == unidade_usuario]
         
         if df_inscritos_filtrado.empty:
-            st.info(f"📝 Nenhum aluno inscrito encontrado para a unidade {unidade_usuario}.")
+            st.info(f"Nenhum aluno inscrito encontrado para a unidade {unidade_usuario}.")
             return
         
-        st.subheader(f"🎯 Alunos Inscritos - {unidade_usuario}")
+        st.subheader(f"Alunos inscritos - {unidade_usuario}")
         st.write(f"**Total de inscrições:** {len(df_inscritos_filtrado)}")
         
         # MODIFICAÇÃO: Cria DataFrame apenas com as colunas que devem ser exibidas
@@ -104,12 +104,12 @@ def pagina_lista_inscritos():
             st.warning(f"⚠️ **{len(registros_para_excluir)} registro(s) selecionado(s) para exclusão**")
             
             # Exibe prévia dos registros que serão excluídos
-            st.subheader("📋 Registros que Serão Excluídos")
+            st.subheader("📋 Registros que serão excluídos")
             df_exclusao_preview = pd.DataFrame([r['dados'][:6] for r in registros_para_excluir], 
                                              columns=['Unidade', 'Nome Aluno', 'RA Aluno', 'Turma Aluno', 'Gênero', 'Modalidade'])
             st.dataframe(df_exclusao_preview, use_container_width=True, hide_index=True)
             
-            if st.button("🗑️ Confirmar Exclusão dos Registros Selecionados", type="primary"):
+            if st.button("🗑️ Confirmar exclusão dos registros selecionados", type="primary"):
                 with st.spinner("Excluindo registros..."):
                     exclusoes_realizadas = 0
                     erros = 0
