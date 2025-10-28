@@ -28,7 +28,7 @@ except Exception as e:
 
 # NOVA FUNÇÃO: Callback para atualização imediata do session_state
 def sync_modalidade_selection(aluno_id, numero_modalidade):
-    """Atualiza imediatamente o session_state quando uma modalidade é selecionada"""
+    """Atualiza imediataente o session_state quando uma modalidade é selecionada"""
     try:
         # Obtém a chave do selectbox que foi alterado
         key = f"modal{numero_modalidade}_{aluno_id}"
@@ -427,60 +427,62 @@ def pagina_principal():
         hide_index=True,
         height=250
     )
-    
+#----------------------------------------------------------------------------------------------------------------  
+    # Lista de Alunos como Lista Suspensa
     # Lista de Alunos como Lista Suspensa
     st.subheader("LISTA DE ALUNOS")
     st.info("**Cada aluno pode se inscrever em até 3 modalidades diferentes**")
     
-    # Pesquisa de alunos
-    col_pesquisa1, col_pesquisa2 = st.columns([2, 1])
+    # Container único para seleção de aluno com funcionalidade de limpar integrada
+    col_selecao1, col_selecao2 = st.columns([3, 1])
     
-    with col_pesquisa1:
-        termo_pesquisa = st.text_input(
-            "Pesquisar aluno por nome ou RA:",
-            placeholder="Digite o nome ou RA do aluno...",
-            help="Busque alunos pelo nome ou número de RA"
+    with col_selecao1:
+        # Filtra alunos (sem pesquisa por texto)
+        df_alunos_pesquisados = df_alunos_filtrados
+        
+        if df_alunos_pesquisados.empty:
+            st.warning("Nenhum aluno encontrado com os filtros aplicados.")
+            return
+        
+        # Cria lista suspensa de alunos
+        opcoes_alunos = criar_lista_suspensa_alunos(df_alunos_pesquisados)
+        
+        # Remove alunos que já têm 3 modalidades registradas
+        opcoes_alunos_filtradas = []
+        for aluno_opcao in opcoes_alunos:
+            ra_aluno = aluno_opcao['ra']
+            modalidades_registradas = inscricoes_existentes_detalhadas.get(ra_aluno, [])
+            if len(modalidades_registradas) < 3:
+                opcoes_alunos_filtradas.append(aluno_opcao)
+        
+        if not opcoes_alunos_filtradas:
+            st.success("Todos os alunos desta turma já estão inscritos em 3 modalidades!")
+            return
+        
+        # Lista suspensa para selecionar aluno
+        opcoes_selectbox = ["Selecione um aluno..."] + [aluno['texto'] for aluno in opcoes_alunos_filtradas]
+        
+        # CORREÇÃO: Usar uma chave única que pode ser resetada
+        if 'selectbox_aluno_key' not in st.session_state:
+            st.session_state.selectbox_aluno_key = 0
+            
+        aluno_selecionado_texto = st.selectbox(
+            "Selecione o aluno:",
+            options=opcoes_selectbox,
+            index=0,
+            help="Selecione um aluno para definir suas modalidades",
+            key=f"selectbox_aluno_{st.session_state.selectbox_aluno_key}"
         )
     
-    with col_pesquisa2:
+    with col_selecao2:
         st.write("")  # Espaçamento
         st.write("")  # Espaçamento
-        if st.button("Limpar pesquisa", use_container_width=True):
-            termo_pesquisa = ""
+        if st.button("🔄 Limpar", use_container_width=True, help="Limpar seleção atual"):
+            # CORREÇÃO: Incrementa a chave para resetar o selectbox
+            st.session_state.selectbox_aluno_key += 1
             st.session_state.cadastro['aluno_selecionado'] = None
             st.rerun()
-    
-    # Filtra alunos baseado na pesquisa
-    df_alunos_pesquisados = filtrar_alunos_por_pesquisa(df_alunos_filtrados, termo_pesquisa)
-    
-    if df_alunos_pesquisados.empty:
-        st.warning("Nenhum aluno encontrado com os filtros aplicados.")
-        return
-    
-    # Cria lista suspensa de alunos
-    opcoes_alunos = criar_lista_suspensa_alunos(df_alunos_pesquisados)
-    
-    # Remove alunos que já têm 3 modalidades registradas
-    opcoes_alunos_filtradas = []
-    for aluno_opcao in opcoes_alunos:
-        ra_aluno = aluno_opcao['ra']
-        modalidades_registradas = inscricoes_existentes_detalhadas.get(ra_aluno, [])
-        if len(modalidades_registradas) < 3:
-            opcoes_alunos_filtradas.append(aluno_opcao)
-    
-    if not opcoes_alunos_filtradas:
-        st.success("Todos os alunos desta turma já estão inscritos em 3 modalidades!")
-        return
-    
-    # Lista suspensa para selecionar aluno
-    opcoes_selectbox = ["Selecione um aluno..."] + [aluno['texto'] for aluno in opcoes_alunos_filtradas]
-    
-    aluno_selecionado_texto = st.selectbox(
-        "Selecione o aluno:",
-        options=opcoes_selectbox,
-        index=0,
-        help="Selecione um aluno para definir suas modalidades"
-    )
+#----------------------------------------------------------------------------------------------------------------
     
     # Encontra o aluno selecionado
     aluno_selecionado_data = None
@@ -578,8 +580,6 @@ def pagina_principal():
                     on_change=sync_modalidade_selection,
                     args=(aluno_id, 1)
                 )
-                # REMOVIDO: A atualização manual não é mais necessária
-                # O callback sync_modalidade_selection cuida disso
                 
             with col2:
                 selecao2 = st.selectbox(
@@ -592,7 +592,6 @@ def pagina_principal():
                     on_change=sync_modalidade_selection,
                     args=(aluno_id, 2)
                 )
-                # REMOVIDO: A atualização manual não é mais necessária
                 
             with col3:
                 selecao3 = st.selectbox(
@@ -605,7 +604,6 @@ def pagina_principal():
                     on_change=sync_modalidade_selection,
                     args=(aluno_id, 3)
                 )
-                # REMOVIDO: A atualização manual não é mais necessária
             
             # Verifica duplicatas
             sem_duplicatas, modalidades_selecionadas = verificar_duplicatas_modalidades(selecoes)
